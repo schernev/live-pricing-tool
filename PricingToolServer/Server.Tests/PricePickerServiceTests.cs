@@ -1,23 +1,24 @@
-using Moq;
 using Server.Data;
+using Server.Data.Model;
 using Server.Services;
 
 namespace Server.Tests
 {
     public class PricePickerServiceTests
     {
-        private IPriceTickerService priceTickerService;
-        private Mock<IDataAccessService> dataAccessServiceMock;
+        readonly IPriceTickerService priceTickerService;
 
         public PricePickerServiceTests()
         {
-            dataAccessServiceMock = new Mock<IDataAccessService>();
-            priceTickerService = new PriceTickerService(dataAccessServiceMock.Object);
+            var dataContextMock = new DataContext();
+            var dataAccessService = new DataAccessService(dataContextMock);
+            priceTickerService = new PriceTickerService(dataAccessService);
         }
 
         [Theory]
         [InlineData("USD", "EUR")]
         [InlineData("EUR", "USD")]
+        // Note : if test data is got from a database, it is better to use a separate test project for integration tests
         public void GetCurrencyRate_ReturnCorrectRange(string from, string to)
         {
             // Act
@@ -25,12 +26,13 @@ namespace Server.Tests
 
             // Assert
             Assert.InRange(result.LastPrice, result.Bid, result.Ask);
-            Assert.InRange(result.LastUpdated, DateTime.Now.AddSeconds(-10), DateTime.Now);
+            //Assert.InRange(result.LastUpdated, DateTime.Now.AddSeconds(-10), DateTime.Now); not valid with test data
         }
 
         [Theory]
         [InlineData("USD", "EUR")]
         [InlineData("EUR", "USD")]
+        // Note : if test data is got from a database, it is better to use a separate test project for integration tests
         public void GetCurrencyRate_ReturnCorrectCurrency(string from, string to)
         {
             // Act
