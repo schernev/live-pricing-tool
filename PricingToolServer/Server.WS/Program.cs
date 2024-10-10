@@ -1,3 +1,6 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Server.Data;
 using Server.Data.Model;
 using Server.Services;
@@ -5,11 +8,8 @@ using Server.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseUrls("http://localhost:8888");
 
-var services = builder.Services;
+ConfigureServices(builder.Services);
 
-ConfigureServices(services);
-
-services.AddControllers();
 
 var app = builder.Build();
 
@@ -17,6 +17,9 @@ var webSocketOptions = new WebSocketOptions
 {
     KeepAliveInterval = TimeSpan.FromMinutes(2)
 };
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseWebSockets(webSocketOptions);
 
@@ -29,4 +32,26 @@ void ConfigureServices(IServiceCollection services)
     services.AddSingleton<IDataContext, DataContext>();
     services.AddTransient<IDataAccessService, DataAccessService>();
     services.AddTransient<IPriceTickerService, PriceTickerService>();
+
+    services.AddControllers();
+
+    var keyConfigValue = builder.Configuration["AppSettings:JWTSecret"];
+    var key = Encoding.ASCII.GetBytes(keyConfigValue!);
+    services.AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(x =>
+    {
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 }
