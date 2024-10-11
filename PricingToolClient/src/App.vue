@@ -9,6 +9,7 @@
 			<HelloWorld msg="Real Time Price App" />
 			<nav>
 				<RouterLink to="/">Home</RouterLink>
+				<RouterLink to="/login">Login</RouterLink>
 			</nav>
 		</div>
 	</header>
