@@ -8,7 +8,7 @@ namespace Server.Data.DTO
     {
         public FxRateResponse(FxRate fxRate)
         {
-            LastUpdated = fxRate.LastUpdated;
+            LastUpdated = DateTime.Now; // fxRate.LastUpdated;
             Currency = fxRate.Currency;
             RefCurrency = fxRate.RefCurrency;
             Bid = fxRate.Bid;
