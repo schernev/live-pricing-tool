@@ -19,7 +19,7 @@ namespace Server.WS.ApiControllers
 
             var username = jwtToken.Claims.FirstOrDefault(c => c.Type == "unique_name")?.Value;
 
-            return new JsonResult(new { Name = "username" });
+            return new JsonResult(new { Username = username });
         }
     }
 }
