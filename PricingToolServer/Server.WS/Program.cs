@@ -25,6 +25,8 @@ app.UseWebSockets(webSocketOptions);
 
 app.MapControllers();
 
+app.UseCors("AllowAll");
+
 app.Run();
 
 void ConfigureServices(IServiceCollection services)
@@ -53,5 +55,16 @@ void ConfigureServices(IServiceCollection services)
             ValidateIssuer = false,
             ValidateAudience = false
         };
+    });
+
+    services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAll",
+            builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
     });
 }
