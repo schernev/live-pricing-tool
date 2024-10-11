@@ -10,6 +10,7 @@
 			<nav>
 				<RouterLink to="/">Home</RouterLink>
 				<RouterLink to="/login">Login</RouterLink>
+				<RouterLink to="/prices">Prices</RouterLink>
 			</nav>
 		</div>
 	</header>
