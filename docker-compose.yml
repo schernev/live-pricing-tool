@@ -1,0 +1,18 @@
+x-project:
+  name: PricingTool
+
+services:
+  serverapp:
+    build:
+      context: ./PricingToolServer
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    restart: always
+  clientapp:
+    build:
+      context: ./PricingToolClient
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
