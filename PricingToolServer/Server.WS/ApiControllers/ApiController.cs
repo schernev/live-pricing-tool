@@ -21,5 +21,12 @@ namespace Server.WS.ApiControllers
 
             return new JsonResult(new { Username = username });
         }
+
+        [AllowAnonymous]
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok("ok");
+        }
     }
 }
