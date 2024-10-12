@@ -6,7 +6,7 @@ using Server.Data.Model;
 using Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseUrls("http://localhost:8888");
+builder.WebHost.UseUrls("http://0.0.0.0:8888");
 
 ConfigureServices(builder.Services);
 
