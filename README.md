@@ -1,7 +1,6 @@
 # live-pricing-tool
 Demo project for a live pricing tool as part of interview task
 
-
 ## 1. Task
 * Develop a web-based application for creating interactive dashboards with drag-and-drop modules.
 * Current milestone to be finished is creating a live pricing tool.
@@ -13,8 +12,7 @@ The approach involves creating two separate applications: one for the back-end a
 
 ### Back-end
 * Back-end app will be developed using ASP.NET. This framework is well suited for backend development of large scale applications. It is high performant and offers numerous built-in components, third party tools and support for API generation, authorization and authentication, which can reduce development time.
-  
-*  Steps
+* Steps
   * Create project structure
   * Set up a test project
   * Develop authentication service
@@ -24,16 +22,14 @@ The approach involves creating two separate applications: one for the back-end a
 
 ### Front-end
 * Front-end will be Vue.js app that will use WebSockets to query server and show charts with returned data. Vue.js is simple and easy to use and very performant javascript framework and is sutable for creating client browser projects.
-
 * Steps
-   * Create a new Vue project with vite
-   * Add view, component and tests for Home page
-   * Add views components for Login and Prices pages
+  * Create a new Vue project with vite
+  * Add view, component and tests for Home page
+  * Add views components for Login and Prices pages
 
 ### Containers
 * Each project will have its own docker file, which includes scripts for dowloading source code from the repository, building it within the container and starting the container
 * A Docker compose file will automate the process of running both app images
-
  
 ## 3. Project descriptions
 
@@ -49,6 +45,10 @@ The approach involves creating two separate applications: one for the back-end a
   * Data Layer (Server.Data)
       * Data access layer, that gets data from database. This is pre-filled list with some example prices.
       * Model and DTO classes for database and object transfer models
+  * TDD was applied in PickerService, where the unit tests were created before application code for checking if results are correctly processed for:
+    * correct range
+    * the same currency were selected for "from" and "to"
+    * not existing currency
 
 ### Front-end
 * Vue.js application, generated with Vite build tool, using node.js for build app
@@ -58,7 +58,6 @@ The approach involves creating two separate applications: one for the back-end a
   * components subfolder - vue components for Login, PricesDisplay and UserInfo
 
 ## 4. Dependencies
-
 ### Back-end dependencies
 * run on .Net 8
 * dev dependencies
@@ -69,7 +68,6 @@ The approach involves creating two separate applications: one for the back-end a
     * xunit
     * xunit.runner.visualstudio
     * Moq
-    * 
 ### Front-end dependencies
 * run on browser
 * dev dependencies
@@ -90,12 +88,20 @@ The approach involves creating two separate applications: one for the back-end a
     * vite
     * vitest
 
-
 ## 5. Installation with Docker Containers
 
 ### Prerequisites
   * Docker (ensure that active option is to run linux containers)
   * Docker-compose (make sure that Docker Compose is installed)
+  * download repo with command
+     ```
+     git clone https://github.com/schernev/live-pricing-tool.git
+     ```
+    or\
+     copy theese 3 files from repository in the same subdirectory structure:\
+    `/docker-compose.yaml` - docker compose file\
+    `/PricingToolServer/Docker` - docker file for server\
+    `/PricingToolClient/Docker` - docker file for client
     
 ### Install & run composed containers
   * Navigate to the directory containing docker-compose.yaml file (source root folder)
@@ -107,7 +113,7 @@ The approach involves creating two separate applications: one for the back-end a
 ### Individually install the front-end or back-end container as needed.
 Note: This step is unnecessary if composed containers were executed in the previous step with Docker compose!
   * Install Back-end App
-    * Navigate to the PricingToolServer subfolder
+    * Navigate to the `PricingToolServer` subfolder
     * Run the command:
       ```
       docker build -f Dockerfile -t serverapp
@@ -117,7 +123,7 @@ Note: This step is unnecessary if composed containers were executed in the previ
         docker build -f Dockerfile -t serverapp . --progress=plain --no-cache
         ```
   * Install Front-end app
-    * navigate to subfolder PricingToolClient
+    * navigate to subfolder `PricingToolClient`
     * run command:
       ```
       docker build -f Dockerfile -t clientapp
