@@ -109,6 +109,7 @@ The approach involves creating two separate applications: one for the back-end a
     ```
     docker-compose up --build
     ```
+  * client web site should be available at http://localhost/ or http://127.0.0.1
     
 ### Individually install the front-end or back-end container as needed.
 Note: This step is unnecessary if composed containers were executed in the previous step with Docker compose!
