@@ -67,7 +67,7 @@
             <span>Last price:</span><span class="price" :class="priceClass">{{ price.lastPrice }}</span>
         </div>
         <div class="item-row">
-            <span>Bid:</span><span class="price" :class="priceClass">{{ price.bid }}</span> / <span>Ask:</span><span class="price" :class="priceClass">{{ price.ask }}</span>
+            <span>Bid:</span><span class="bid" :class="priceClass">{{ price.bid }}</span> / <span>Ask:</span><span class="ask" :class="priceClass">{{ price.ask }}</span>
         </div>
         <div class="item-row">
             <span>Time updated:</span><span class="time">{{ new Date(price.lastUpdated).toLocaleTimeString() }}</span>
@@ -87,7 +87,7 @@
         font-size: 1.5rem;
         margin: 8px 0;
     }
-    .price, .time {
+    .price, .bid, .ask, .time {
         font-weight: bold;
         margin-top: 2px;
         margin-left: 1rem;
